@@ -2,7 +2,7 @@
     {
         "titre": " Studio de Dessin Virtuel par D\u00e9tection de Mouvement",
         "description": "Air Canvas est un studio de dessin virtuel innovant qui utilise la d\u00e9tection de mouvement pour permettre aux utilisateurs de cr\u00e9er des \u0153uvres d'art num\u00e9riques sans toucher physiquement l'\u00e9cran. En utilisant la cam\u00e9ra de l'appareil, le syst\u00e8me d\u00e9tecte les mouvements de la main de l'utilisateur et les traduit en traits sur un canevas virtuel. Cette application offre une exp\u00e9rience de dessin intuitive et ludique, avec des fonctionnalit\u00e9s telles que le choix de couleurs, l'ajustement de la taille du pinceau, et des modes de dessin et d'effacement. Air Canvas d\u00e9montre une fusion cr\u00e9ative entre l'art num\u00e9rique et la technologie de reconnaissance gestuelle.",
-        "image": "AirCanvas.png",
+        "image": "images/AirCanvas.png",
         "lien": "http:\/\/127.0.0.1:5500\/AirCanvas.html",
         "technologies": "HTML5,CSS3,javaScript,MediaPipe Hands,Canvas API,Web Storage API,Font Awesome ,Google Fonts",
         "date": "2024-10-12"
@@ -10,7 +10,7 @@
     {
         "titre": "space-shooter",
         "description": "Il s'agit d'un ensemble de catalogues de jeux utilisant la technologie de d\u00e9tection de mouvement par la main.",
-        "image": "space-shooter.png",
+        "image": "images/space-shooter.png",
         "lien": "https:\/\/moutail.github.io\/space-shooter\/",
         "technologies": "HTML5,CSS3,javaScript,MediaPipe Hands,Canvas API,Web Storage API",
         "date": "2024-10-12"
