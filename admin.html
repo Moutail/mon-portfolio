@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Chaoussi Cherif Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #3B82F6;
+            --secondary-color: #60A5FA;
+            --background-color: #111827;
+            --text-color: #E5E7EB;
+            --card-bg-color: #1F2937;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+        }
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+        .card {
+            background-color: var(--card-bg-color);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <script>
+        // Vérifier si l'utilisateur est connecté
+        if (!localStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+    
+    <header class="bg-gray-900 text-white py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Administration du Portfolio</h1>
+            <button onclick="logout()" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                Déconnexion
+            </button>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">Ajouter un nouveau projet</h2>
+            <form id="add-project-form" class="card p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label for="titre" class="block mb-2">Titre du projet</label>
+                        <input type="text" id="titre" name="titre" required class="w-full px-3 py-2 bg-gray-700 rounded">
+                    </div>
+                    <div>
+                        <label for="image" class="block mb-2">URL de l'image</label>
+                        <input type="text" id="image" name="image" required class="w-full px-3 py-2 bg-gray-700 rounded">
+                    </div>
+                    <div>
+                        <label for="lien" class="block mb-2">Lien du projet</label>
+                        <input type="url" id="lien" name="lien" required class="w-full px-3 py-2 bg-gray-700 rounded">
+                    </div>
+                    <div>
+                        <label for="date" class="block mb-2">Date du projet</label>
+                        <input type="date" id="date" name="date" required class="w-full px-3 py-2 bg-gray-700 rounded">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="description" class="block mb-2">Description</label>
+                        <textarea id="description" name="description" required class="w-full px-3 py-2 bg-gray-700 rounded h-32"></textarea>
+                    </div>
+                    <div class="md:col-span-2">
+                        <label for="technologies" class="block mb-2">Technologies (séparées par des virgules)</label>
+                        <input type="text" id="technologies" name="technologies" required class="w-full px-3 py-2 bg-gray-700 rounded">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary mt-4">Ajouter le projet</button>
+            </form>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-bold mb-4">Projets existants</h2>
+            <div id="projects-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Les projets seront injectés ici via JavaScript -->
+            </div>
+        </section>
+
+        <section class="mt-12">
+            <h2 class="text-2xl font-bold mb-4">Messages reçus</h2>
+            <div id="messages-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Les messages seront injectés ici via JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+    // Fonction pour charger les projets
+    function loadProjects() {
+        fetch('projets.json')
+            .then(response => response.json())
+            .then(projects => {
+                const container = document.getElementById('projects-container');
+                container.innerHTML = '';
+                projects.forEach((project, index) => {
+                    const projectElement = createProjectElement(project, index);
+                    container.appendChild(projectElement);
+                });
+            })
+            .catch(error => console.error('Erreur de chargement des projets:', error));
+    }
+
+    // Fonction pour créer un élément de projet
+    function createProjectElement(project, index) {
+        const projectDiv = document.createElement('div');
+        projectDiv.className = 'card p-6';
+        projectDiv.innerHTML = `
+            <h3 class="text-xl font-bold mb-2">${project.titre}</h3>
+            <img src="${project.image}" alt="${project.titre}" class="w-full h-48 object-cover mb-4 rounded">
+            <p class="mb-4">${project.description}</p>
+            <div class="flex flex-wrap gap-2 mb-4">
+                ${project.technologies.split(',').map(tech => `<span class="px-2 py-1 bg-blue-600 text-xs rounded-full">${tech.trim()}</span>`).join('')}
+            </div>
+            <p class="text-sm mb-4">Date: ${project.date}</p>
+            <a href="${project.lien}" target="_blank" class="text-blue-400 hover:underline mb-4 block">Voir le projet</a>
+            
+            <div class="flex justify-between">
+                <button onclick="toggleUpdateForm(${index})" class="btn-primary">Modifier</button>
+                <button onclick="deleteProject(${index})" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Supprimer</button>
+            </div>
+            
+            <form id="update-form-${index}" class="hidden mt-4">
+                <input type="text" name="titre" value="${project.titre}" required class="w-full px-3 py-2 bg-gray-700 rounded mb-2">
+                <textarea name="description" required class="w-full px-3 py-2 bg-gray-700 rounded h-32 mb-2">${project.description}</textarea>
+                <input type="text" name="image" value="${project.image}" required class="w-full px-3 py-2 bg-gray-700 rounded mb-2">
+                <input type="url" name="lien" value="${project.lien}" required class="w-full px-3 py-2 bg-gray-700 rounded mb-2">
+                <input type="text" name="technologies" value="${project.technologies}" required class="w-full px-3 py-2 bg-gray-700 rounded mb-2">
+                <input type="date" name="date" value="${project.date}" required class="w-full px-3 py-2 bg-gray-700 rounded mb-2">
+                <button type="button" onclick="updateProject(${index})" class="btn-primary">Mettre à jour</button>
+            </form>
+        `;
+        return projectDiv;
+    }
+
+    // Fonction pour ajouter un nouveau projet
+    function addProject(event) {
+        event.preventDefault();
+        const form = event.target;
+        const newProject = {
+            titre: form.titre.value,
+            description: form.description.value,
+            image: form.image.value,
+            lien: form.lien.value,
+            technologies: form.technologies.value,
+            date: form.date.value
+        };
+
+        fetch('projets.json')
+            .then(response => response.json())
+            .then(projects => {
+                projects.push(newProject);
+                return fetch('projets.json', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(projects)
+                });
+            })
+            .then(() => {
+                loadProjects();
+                form.reset();
+            })
+            .catch(error => console.error('Erreur lors de l\'ajout du projet:', error));
+    }
+
+    // Fonction pour mettre à jour un projet
+    function updateProject(index) {
+        const form = document.getElementById(`update-form-${index}`);
+        const updatedProject = {
+            titre: form.titre.value,
+            description: form.description.value,
+            image: form.image.value,
+            lien: form.lien.value,
+            technologies: form.technologies.value,
+            date: form.date.value
+        };
+
+        fetch('projets.json')
+            .then(response => response.json())
+            .then(projects => {
+                projects[index] = updatedProject;
+                return fetch('projets.json', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(projects)
+                });
+            })
+            .then(() => {
+                loadProjects();
+                toggleUpdateForm(index);
+            })
+            .catch(error => console.error('Erreur lors de la mise à jour du projet:', error));
+    }
+
+    // Fonction pour supprimer un projet
+    function deleteProject(index) {
+        if (confirm('Êtes-vous sûr de vouloir supprimer ce projet ?')) {
+            fetch('projets.json')
+                .then(response => response.json())
+                .then(projects => {
+                    projects.splice(index, 1);
+                    return fetch('projets.json', {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(projects)
+                    });
+                })
+                .then(() => loadProjects())
+                .catch(error => console.error('Erreur lors de la suppression du projet:', error));
+        }
+    }
+
+    // Fonction pour basculer l'affichage du formulaire de mise à jour
+    function toggleUpdateForm(index) {
+        const form = document.getElementById(`update-form-${index}`);
+        form.classList.toggle('hidden');
+    }
+
+    // Fonction pour charger les messages
+    function loadMessages() {
+        fetch('messages.json')
+            .then(response => response.json())
+            .then(messages => {
+                const container = document.getElementById('messages-container');
+                container.innerHTML = '';
+                messages.forEach(message => {
+                    const messageElement = createMessageElement(message);
+                    container.appendChild(messageElement);
+                });
+            })
+            .catch(error => console.error('Erreur de chargement des messages:', error));
+    }
+
+    // Fonction pour créer un élément de message
+    function createMessageElement(message) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = 'card p-6';
+        messageDiv.innerHTML = `
+            <h3 class="text-xl font-bold mb-2">${message.nom}</h3>
+            <p class="text-sm mb-2">Email: ${message.email}</p>
+            <p class="mb-4">${message.message}</p>
+            <p class="text-sm text-gray-400">Reçu le: ${message.date}</p>
+        `;
+        return messageDiv;
+    }
+
+    // Fonction de déconnexion
+    function logout() {
+        localStorage.removeItem('isLoggedIn');
+        window.location.href = 'login.html';
+    }
+
+    // Événements au chargement de la page
+    document.addEventListener('DOMContentLoaded', () => {
+        loadProjects();
+        loadMessages();
+        document.getElementById('add-project-form').addEventListener('submit', addProject);
+    });
+    </script>
+</body>
+</html>
