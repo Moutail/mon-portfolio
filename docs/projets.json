@@ -16,7 +16,7 @@
         "date": "2024-10-12"
     },
 
-     {
+    {
         "titre": "Système Solaire Interactif 3D",
         "description": "Une application web interactive en 3D représentant notre système solaire, permettant aux utilisateurs d'explorer les planètes et leurs caractéristiques. L'application offre une expérience immersive avec un vaisseau spatial navigable et des visualisations détaillées des corps célestes.",
         "image": "images/systeme_solaire.png",
