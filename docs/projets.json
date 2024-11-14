@@ -23,5 +23,14 @@
         "lien": "https://moutail.github.io/Systeme_solaire/",
         "technologies": "React.js,Three.js, @react-three/drei,WebGL,Custom Shaders (GLSL),Gestion optimisée des ressources 3D",
         "date": "2024-10-24"
+    },
+    
+    {
+    "titre": "SKYNET - Visualiseur Musical Avancé",
+    "description": "Un visualiseur audio interactif et immersif qui transforme la musique en une expérience visuelle dynamique. Il crée des animations en temps réel basées sur l'analyse des fréquences audio, avec un système de particules réactif et des effets visuels personnalisables.",
+    "image": "images/audioVisualizer.png",
+    "lien": "https://moutail.github.io/audio-visualizer/",
+    "technologies": "HTML5,CSS3,JavaScript ES6+,Web Audio API,Canvas API,RequestAnimationFrame,AudioContext,Interface modulaire,Design responsive",
+    "date": "2024-11-14"
     }
 ]
