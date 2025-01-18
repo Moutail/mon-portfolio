@@ -18,6 +18,83 @@
         --hover-color: #2563EB;
     }
 
+    .logo-container {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .logo-text {
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+        font-size: 1.5rem;
+        background: linear-gradient(45deg, #3B82F6, #60A5FA);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        padding-left: 0.5rem;
+    }
+
+    .logo-text::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 70%;
+        background: linear-gradient(to bottom, #3B82F6, #60A5FA);
+        border-radius: 2px;
+    }
+
+    .nav-link {
+        position: relative;
+        padding: 0.5rem 1rem;
+        color: #E5E7EB;
+        text-decoration: none;
+        transition: color 0.3s ease;
+        font-weight: 500;
+    }
+
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 50%;
+        background: linear-gradient(45deg, #3B82F6, #60A5FA);
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .nav-link:hover::after {
+        width: 100%;
+    }
+
+    .mobile-menu-item {
+        padding: 1rem;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent;
+    }
+
+    .mobile-menu-item:hover {
+        background: rgba(59, 130, 246, 0.1);
+        border-left: 3px solid #3B82F6;
+    }
+
+    @keyframes glowPulse {
+        0% { filter: brightness(1); }
+        50% { filter: brightness(1.2); }
+        100% { filter: brightness(1); }
+    }
+
+    .logo-container:hover .logo-text {
+        animation: glowPulse 2s infinite;
+    }
+
+
     body {
         background-color: var(--background-color);
         color: var(--text-color);
@@ -26,6 +103,9 @@
 
     header {
         transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+        position: fixed;
+        width: 100%;
+        z-index: 50; /* Augmenter le z-index */
     }
 
     header.scrolled {
@@ -42,8 +122,13 @@
     }
 
     #mobile-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
         background-color: rgba(17, 24, 39, 0.95);
         backdrop-filter: blur(10px);
+        z-index: 49; /* Juste en dessous du header mais au-dessus du contenu */
     }
 
     .btn-primary {
@@ -142,7 +227,8 @@
 
     #hero {
         position: relative;
-        overflow: hidden;
+        z-index: 1; /* S'assurer que le hero est en dessous du menu */
+        padding-top: 6rem; /* Ajouter un padding pour compenser le header fixe */
     }
 
     #hero::before {
@@ -154,6 +240,11 @@
         bottom: 0;
         background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
         z-index: -1;
+    }
+
+    .main-content {
+        position: relative;
+        z-index: 1;
     }
 
     .skill-badge {
@@ -203,31 +294,46 @@
     </style>
 </head>
 <body class="text-base">
-    <header class="bg-gray-900 shadow-md fixed w-full z-10">
+    <header class="bg-gray-900 shadow-md fixed w-full z-50">
         <nav class="container mx-auto px-6 py-4">
             <div class="flex justify-between items-center">
-                <a href="#" class="text-white">
-                    <svg id="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="50" cy="50" r="45" />
-                        <path d="M30 50 L70 50" />
-                        <path d="M50 30 L50 70" />
+                <!-- Logo et nom -->
+                <a href="#" class="logo-container">
+                    <svg class="w-8 h-8" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="18" stroke="url(#logo-gradient)" stroke-width="2"/>
+                        <path d="M12 20L28 20M20 12L20 28" stroke="url(#logo-gradient)" stroke-width="2" stroke-linecap="round"/>
+                        <defs>
+                            <linearGradient id="logo-gradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                                <stop offset="0%" stop-color="#3B82F6"/>
+                                <stop offset="100%" stop-color="#60A5FA"/>
+                            </linearGradient>
+                        </defs>
                     </svg>
+                    <span class="logo-text">VOID</span>
                 </a>
-                <div class="hidden md:flex space-x-6">
-                    <a href="#about" class="text-gray-300 hover:text-white transition-colors duration-300">À propos</a>
-                    <a href="#skills" class="text-gray-300 hover:text-white transition-colors duration-300">Compétences</a>
-                    <a href="#projects" class="text-gray-300 hover:text-white transition-colors duration-300">Projets</a>
-                    <a href="#contact" class="text-gray-300 hover:text-white transition-colors duration-300">Contact</a>
+
+                <!-- Menu desktop -->
+                <div class="hidden md:flex space-x-2">
+                    <a href="#about" class="nav-link">À propos</a>
+                    <a href="#competences" class="nav-link">Compétences</a>
+                    <a href="#projets" class="nav-link">Projets</a>
+                    <a href="#contact" class="nav-link">Contact</a>
                 </div>
+
+                <!-- Bouton menu mobile -->
                 <button class="md:hidden text-white focus:outline-none" id="menu-toggle">
-                    <i class="fas fa-bars"></i>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
                 </button>
             </div>
-            <div class="md:hidden mt-4 hidden" id="mobile-menu">
-                <a href="#about" class="block py-2 text-gray-300 hover:text-white">À propos</a>
-                <a href="#skills" class="block py-2 text-gray-300 hover:text-white">Compétences</a>
-                <a href="#projects" class="block py-2 text-gray-300 hover:text-white">Projets</a>
-                <a href="#contact" class="block py-2 text-gray-300 hover:text-white">Contact</a>
+
+            <!-- Menu mobile -->
+            <div class="md:hidden mt-4 hidden rounded-lg overflow-hidden" id="mobile-menu">
+                <a href="#about" class="mobile-menu-item block text-gray-300 hover:text-white">À propos</a>
+                <a href="#competences" class="mobile-menu-item block text-gray-300 hover:text-white">Compétences</a>
+                <a href="#projets" class="mobile-menu-item block text-gray-300 hover:text-white">Projets</a>
+                <a href="#contact" class="mobile-menu-item block text-gray-300 hover:text-white">Contact</a>
             </div>
         </nav>
     </header>
@@ -291,7 +397,7 @@
             </div>
         </section>
 
-        <section id="skills" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
+        <section id="competences" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold mb-12 text-center text-white">Mes Compétences</h2>
                 <div id="skills-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -300,7 +406,7 @@
             </div>
         </section>
 
-        <section id="projects" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
+        <section id="projets" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
             <div class="container mx-auto px-6">
                 <h2 class="text-4xl font-bold mb-12 text-center text-white">Mes Projets</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-container">
@@ -319,14 +425,14 @@
                                         <svg class="w-6 h-6 mr-3 text-primary-color" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                                         <a href="mailto:chaoussicherif@gmail.com" class="hover:text-primary-color transition duration-300">chaoussicherif@gmail.com</a>
                                     </li>
-                                    <li class="flex items-center text-gray-300">
+                                    <!--<li class="flex items-center text-gray-300">
                                         <svg class="w-6 h-6 mr-3 text-primary-color" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
                                         <span>+1 438 365 4933</span>
                                     </li>
                                     <li class="flex items-center text-gray-300">
                                         <svg class="w-6 h-6 mr-3 text-primary-color" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                         <span>07-5005 av Macdonald, Montréal, Canada</span>
-                                    </li>
+                                    </li>-->
                                 </ul>
                                 <div class="mt-8">
                                     <h4 class="text-xl font-semibold mb-4 text-white">Suivez-moi</h4>
