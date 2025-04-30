@@ -14,48 +14,91 @@
     <link rel="stylesheet" href="portfolio-enhanced.css">
 </head>
 <body class="text-base">
-    <header class="bg-gray-900 shadow-md fixed w-full z-50">
-        <nav class="container mx-auto px-6 py-4">
-            <div class="flex justify-between items-center">
-                <!-- Logo et nom -->
-                <a href="#" class="logo-container">
-                    <svg class="w-8 h-8" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="20" cy="20" r="18" stroke="url(#logo-gradient)" stroke-width="2"/>
-                        <path d="M12 20L28 20M20 12L20 28" stroke="url(#logo-gradient)" stroke-width="2" stroke-linecap="round"/>
-                        <defs>
-                            <linearGradient id="logo-gradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-                                <stop offset="0%" stop-color="#3B82F6"/>
-                                <stop offset="100%" stop-color="#60A5FA"/>
-                            </linearGradient>
-                        </defs>
-                    </svg>
-                    <span class="logo-text">VOID</span>
-                </a>
-
-                <!-- Menu desktop -->
-                <div class="hidden md:flex space-x-2">
-                    <a href="#about" class="nav-link">À propos</a>
-                    <a href="#competences" class="nav-link">Compétences</a>
-                    <a href="#projets" class="nav-link">Projets</a>
-                    <a href="#contact" class="nav-link">Contact</a>
+    <header class="fixed w-full z-50 transition-all duration-300">
+        <div class="backdrop-blur-md bg-gray-900 bg-opacity-70 shadow-lg">
+            <nav class="container mx-auto px-6 py-4">
+                <div class="flex justify-between items-center">
+                    <!-- Logo et nom -->
+                    <a href="#" class="logo-container group">
+                        <div class="relative flex items-center">
+                            <svg class="w-10 h-10 transition-transform duration-300 group-hover:rotate-180" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="20" cy="20" r="18" stroke="url(#logo-gradient)" stroke-width="3"/>
+                                <path d="M12 20L28 20M20 12L20 28" stroke="url(#logo-gradient)" stroke-width="3" stroke-linecap="round"/>
+                                <defs>
+                                    <linearGradient id="logo-gradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                                        <stop offset="0%" stop-color="#3B82F6"/>
+                                        <stop offset="100%" stop-color="#60A5FA"/>
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                            <span class="logo-text ml-2 text-2xl font-bold">VOID</span>
+                            
+                            <!-- Effet de lumière sur le logo au survol -->
+                            <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full blur opacity-0 group-hover:opacity-20 transition duration-1000 group-hover:duration-200"></div>
+                        </div>
+                    </a>
+    
+                    <!-- Menu desktop avec indicateur actif -->
+                    <div class="hidden md:block">
+                        <div class="relative flex space-x-1">
+                            <a href="#about" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">À propos</a>
+                            <a href="#competences" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Compétences</a>
+                            <a href="#projets" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Projets</a>
+                            <a href="#contact" class="nav-link text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Contact</a>
+                            
+                            <!-- Indicateur de section active -->
+                            <span id="nav-indicator" class="absolute bottom-0 h-1 bg-gradient-to-r from-blue-600 to-blue-400 rounded-full transition-all duration-300" style="width: 0; left: 0;"></span>
+                        </div>
+                    </div>
+    
+                    <!-- Boutons d'action et thème -->
+                    <div class="hidden md:flex items-center space-x-4">
+                        <!-- Bouton de changement de thème (à implémenter plus tard) -->
+                        <button id="theme-toggle" class="text-gray-300 hover:text-white p-1 rounded-full transition-colors duration-300">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                        </button>
+                        
+                        <!-- Bouton de contact -->
+                        <a href="#contact" class="inline-flex items-center py-2 px-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-medium rounded-lg shadow-lg hover:from-blue-700 hover:to-blue-600 transform hover:-translate-y-1 transition-all duration-300">
+                            <span>Contact</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                        </a>
+                    </div>
+    
+                    <!-- Bouton menu mobile avec animation -->
+                    <button class="md:hidden text-white focus:outline-none" id="menu-toggle">
+                        <div class="hamburger w-6 h-6 flex flex-col justify-between">
+                            <span class="hamburger-line block w-full h-0.5 bg-white rounded-full transition-all duration-300"></span>
+                            <span class="hamburger-line block w-full h-0.5 bg-white rounded-full transition-all duration-300"></span>
+                            <span class="hamburger-line block w-full h-0.5 bg-white rounded-full transition-all duration-300"></span>
+                        </div>
+                    </button>
                 </div>
-
-                <!-- Bouton menu mobile -->
-                <button class="md:hidden text-white focus:outline-none" id="menu-toggle">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Menu mobile -->
-            <div class="md:hidden mt-4 hidden rounded-lg overflow-hidden" id="mobile-menu">
-                <a href="#about" class="mobile-menu-item block text-gray-300 hover:text-white">À propos</a>
-                <a href="#competences" class="mobile-menu-item block text-gray-300 hover:text-white">Compétences</a>
-                <a href="#projets" class="mobile-menu-item block text-gray-300 hover:text-white">Projets</a>
-                <a href="#contact" class="mobile-menu-item block text-gray-300 hover:text-white">Contact</a>
-            </div>
-        </nav>
+    
+                <!-- Menu mobile avec animation -->
+                <div class="md:hidden mt-4 hidden rounded-lg overflow-hidden" id="mobile-menu">
+                    <div class="px-2 pt-2 pb-3 space-y-1">
+                        <a href="#about" class="mobile-menu-item block text-gray-300 hover:text-white rounded-md px-3 py-2 font-medium transition-all duration-300">À propos</a>
+                        <a href="#competences" class="mobile-menu-item block text-gray-300 hover:text-white rounded-md px-3 py-2 font-medium transition-all duration-300">Compétences</a>
+                        <a href="#projets" class="mobile-menu-item block text-gray-300 hover:text-white rounded-md px-3 py-2 font-medium transition-all duration-300">Projets</a>
+                        <a href="#contact" class="mobile-menu-item block text-gray-300 hover:text-white rounded-md px-3 py-2 font-medium transition-all duration-300">Contact</a>
+                    </div>
+                    <!-- Boutons dans le menu mobile -->
+                    <div class="px-5 py-3 border-t border-gray-700">
+                        <a href="#contact" class="flex items-center justify-center py-2 px-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
+                            <span>Contactez-moi</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="ml-2 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </nav>
+        </div>
     </header>
 
     <main class="pt-20">
@@ -221,14 +264,48 @@
             </div>
         </section>
 
-        <section id="competences" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800">
-            <div class="container mx-auto px-6">
-                <h2 class="text-4xl font-bold mb-12 text-center text-white">Mes Compétences</h2>
-                <div id="skills-container" class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Les compétences seront injectées ici via JavaScript -->
+        <section id="competences" class="py-20 bg-gradient-to-b from-gray-900 to-gray-800 relative overflow-hidden">
+            <!-- Éléments graphiques d'arrière-plan -->
+            <div class="absolute top-0 left-0 w-64 h-64 bg-blue-600/10 rounded-full filter blur-3xl"></div>
+            <div class="absolute bottom-0 right-0 w-80 h-80 bg-blue-900/10 rounded-full filter blur-3xl"></div>
+            
+            <!-- Grille décorative -->
+            <div class="absolute inset-0 bg-grid-white/5 bg-grid-white/5 backdrop-filter"></div>
+            
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="max-w-3xl mx-auto text-center mb-16">
+                    <h2 class="text-4xl font-bold mb-4 text-white">Mes Compétences</h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        Une combinaison d'expertise technique et de créativité pour développer des solutions web et mobiles innovantes.
+                    </p>
+                </div>
+        
+                <!-- Onglets de catégories -->
+                <div class="flex flex-wrap justify-center mb-12">
+                    <button class="skill-tab active m-2 px-4 py-2 rounded-full bg-blue-600/20 text-blue-400 border border-blue-600/30 hover:bg-blue-600/30 transition-colors duration-300" data-category="all">
+                        Toutes
+                    </button>
+                    <button class="skill-tab m-2 px-4 py-2 rounded-full bg-transparent text-gray-400 border border-gray-700 hover:bg-blue-600/10 hover:text-blue-400 hover:border-blue-600/30 transition-colors duration-300" data-category="frontend">
+                        Frontend
+                    </button>
+                    <button class="skill-tab m-2 px-4 py-2 rounded-full bg-transparent text-gray-400 border border-gray-700 hover:bg-blue-600/10 hover:text-blue-400 hover:border-blue-600/30 transition-colors duration-300" data-category="backend">
+                        Backend
+                    </button>
+                    <button class="skill-tab m-2 px-4 py-2 rounded-full bg-transparent text-gray-400 border border-gray-700 hover:bg-blue-600/10 hover:text-blue-400 hover:border-blue-600/30 transition-colors duration-300" data-category="mobile">
+                        Mobile
+                    </button>
+                    <button class="skill-tab m-2 px-4 py-2 rounded-full bg-transparent text-gray-400 border border-gray-700 hover:bg-blue-600/10 hover:text-blue-400 hover:border-blue-600/30 transition-colors duration-300" data-category="design">
+                        Design
+                    </button>
+                </div>
+        
+                <!-- Grille de compétences -->
+                <div id="skills-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Les compétences seront générées par JavaScript -->
                 </div>
             </div>
         </section>
+        
 
         <section id="projets" class="py-20 bg-gradient-to-b from-gray-800 to-gray-900 relative overflow-hidden">
             <!-- Éléments graphiques d'arrière-plan -->
@@ -565,572 +642,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
         <script type="module" src="firebase-config.js"></script>
         <script type="module" src="contact-form.js"></script>
-        <script>
-        // Initialisation d'AOS
-        AOS.init({
-            duration: 1000,
-            once: true,
-        });
-    
-        // Attendre que le DOM soit chargé
-        document.addEventListener('DOMContentLoaded', function() {
-            // Gestion de la barre de navigation
-            const header = document.querySelector('header');
-            const scrollThreshold = 50;
-            const form = document.getElementById('contact-form');
-            const formMessage = document.getElementById('form-message');
-            const buttonText = document.getElementById('button-text');
-            const buttonLoader = document.getElementById('button-loader');
-
-
-            if (form && formMessage) {
-                form.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    // Afficher le loader
-                    buttonText.classList.add('hidden');
-                    buttonLoader.classList.remove('hidden');
-                    form.querySelector('button').disabled = true;
-                    
-                    // Récupérer les données du formulaire
-                    const formData = new FormData(form);
-                    const contactData = {
-                        nom: formData.get('nom'),
-                        email: formData.get('email'),
-                        sujet: formData.get('sujet'),
-                        message: formData.get('message'),
-                        date: new Date().toISOString()
-                    };
-                    
-                    try {
-                        // Si vous utilisez Firebase
-                        if (typeof db !== 'undefined' && typeof collection !== 'undefined' && typeof addDoc !== 'undefined') {
-                            // Ajouter le message à Firebase
-                            await addDoc(collection(db, "messages"), contactData);
-                        } else {
-                            // Simulation d'envoi (à remplacer par votre logique d'envoi réelle)
-                            console.log('Message envoyé:', contactData);
-                            // Simuler un délai
-                            await new Promise(resolve => setTimeout(resolve, 1500));
-                        }
-                        
-                        // Afficher un message de succès
-                        formMessage.textContent = "Votre message a été envoyé avec succès ! Je vous répondrai dans les plus brefs délais.";
-                        formMessage.className = "mt-6 px-4 py-3 rounded-lg text-center bg-green-600/20 text-green-400 border border-green-600/30";
-                        
-                        // Réinitialiser le formulaire
-                        form.reset();
-                    } catch (error) {
-                        console.error("Erreur lors de l'envoi du message:", error);
-                        
-                        // Afficher un message d'erreur
-                        formMessage.textContent = "Une erreur s'est produite lors de l'envoi de votre message. Veuillez réessayer ultérieurement.";
-                        formMessage.className = "mt-6 px-4 py-3 rounded-lg text-center bg-red-600/20 text-red-400 border border-red-600/30";
-                    } finally {
-                        // Réactiver le bouton
-                        buttonText.classList.remove('hidden');
-                        buttonLoader.classList.add('hidden');
-                        form.querySelector('button').disabled = false;
-                        
-                        // Afficher le message
-                        formMessage.classList.remove('hidden');
-                        
-                        // Masquer le message après un certain délai
-                        setTimeout(function() {
-                            formMessage.classList.add('hidden');
-                        }, 6000);
-                        
-                        // Faire défiler jusqu'au message
-                        formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
-                });
-            }
-    
-            function updateHeaderStyle() {
-                if (window.scrollY > scrollThreshold) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
-                }
-            }
-    
-            window.addEventListener('scroll', updateHeaderStyle);
-            updateHeaderStyle();
-    
-            // Mobile menu toggle
-            const menuToggle = document.getElementById('menu-toggle');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            if (menuToggle && mobileMenu) {
-                menuToggle.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                    console.log('Menu toggled');
-                });
-            } else {
-                console.error('Menu toggle or mobile menu not found');
-            }
-    
-            // GSAP animations
-            gsap.registerPlugin(ScrollTrigger);
-    
-            // Navbar animation
-            const navbar = document.getElementById('navbar');
-            if (navbar) {
-                ScrollTrigger.create({
-                    start: 'top -80',
-                    end: 99999,
-                    toggleClass: { className: 'backdrop-blur-md', targets: navbar }
-                });
-            }
-    
-            // Sections animation
-            gsap.utils.toArray('section').forEach((section) => {
-                const heading = section.querySelector('h2');
-                const content = section.querySelector('div');
-    
-                if (heading) {
-                    gsap.fromTo(heading, 
-                        { opacity: 0, y: 50 },
-                        {
-                            opacity: 1,
-                            y: 0,
-                            duration: 1,
-                            scrollTrigger: {
-                                trigger: section,
-                                start: 'top 80%',
-                                end: 'bottom 20%',
-                                toggleActions: 'play none none reverse'
-                            }
-                        }
-                    );
-                }
-    
-                if (content) {
-                    gsap.fromTo(content, 
-                    { opacity: 0, y: 50 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1,
-                        delay: 0.2,
-                        scrollTrigger: {
-                            trigger: section,
-                            start: 'top 80%',
-                            end: 'bottom 20%',
-                            toggleActions: 'play none none reverse'
-                        }
-                    }
-                );
-            }
-        });
-
-        // Skill bars animation
-        gsap.utils.toArray('.skill-progress').forEach((bar) => {
-            gsap.fromTo(bar, 
-                { width: '0%' },
-                {
-                    width: bar.style.width,
-                    duration: 1.5,
-                    ease: 'power2.out',
-                    scrollTrigger: {
-                        trigger: bar,
-                        start: 'top 90%',
-                    }
-                }
-            );
-        });
-
-        // Project cards animation
-        gsap.utils.toArray('.project-card').forEach((card, i) => {
-            gsap.fromTo(card, 
-                { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.6,
-                    delay: i * 0.1,
-                    scrollTrigger: {
-                        trigger: card,
-                        start: 'top 90%',
-                    }
-                }
-            );
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-
-        // Chargement des compétences
-        const skills = [
-            ["Développement Front-end", 90, ["HTML5", "CSS3", "JavaScript", "React", "Vue.js"], "fas fa-laptop-code"],
-            ["Développement Back-end", 85, ["PHP", "Node.js", "Python", "SQL", "NoSQL"], "fas fa-server"],
-            ["Développement Mobile", 80, ["React Native", "Flutter", "iOS (Swift)", "Android (Kotlin)"], "fas fa-mobile-alt"],
-            ["UI/UX Design", 75, ["Figma", "Adobe XD", "Sketch"], "fas fa-pencil-ruler"]
-        ];
-
-        function createSkillElement(skill, index) {
-            const [title, percentage, techSkills, icon] = skill;
-            const skillElement = document.createElement('div');
-            skillElement.className = 'card p-6 transform hover:scale-105 transition duration-300 ease-in-out';
-            skillElement.setAttribute('data-aos', 'fade-up');
-            skillElement.setAttribute('data-aos-delay', index * 100);
-
-            skillElement.innerHTML = `
-                <div class="flex items-center mb-4">
-                    <i class="${icon} text-3xl text-primary-color mr-4"></i>
-                    <h3 class="text-2xl font-semibold">${title}</h3>
-                </div>
-                <div class="relative pt-1">
-                    <div class="flex mb-2 items-center justify-between">
-                        <div>
-                            <span class="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-primary-color bg-primary-color bg-opacity-20">
-                                Compétence
-                            </span>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-xs font-semibold inline-block text-primary-color">
-                                ${percentage}%
-                            </span>
-                        </div>
-                    </div>
-                    <div class="overflow-hidden h-2 mb-4 text-xs flex rounded bg-primary-color bg-opacity-20">
-                        <div style="width:${percentage}%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary-color animate-pulse"></div>
-                    </div>
-                </div>
-                <div class="flex flex-wrap gap-2 mt-4">
-                    ${techSkills.map(tech => `<span class="px-2 py-1 bg-gray-700 text-sm rounded-full text-gray-300">${tech}</span>`).join('')}
-                </div>
-            `;
-
-            return skillElement;
-        }
-
-        function loadSkills() {
-            const container = document.getElementById('skills-container');
-            skills.forEach((skill, index) => {
-                const skillElement = createSkillElement(skill, index);
-                container.appendChild(skillElement);
-            });
-        }
-
-        // Chargement des projets
-        function loadProjects() {
-            fetch('projets.json')
-        .then(response => response.json())
-        .then(projects => {
-            // Ajouter une catégorie à chaque projet (à des fins de démonstration)
-            // Dans un vrai scénario, ces catégories seraient déjà dans votre JSON
-            const categories = ['web', 'mobile', 'design'];
-            projects = projects.map(project => {
-                // Attribuer une catégorie aléatoire ou basée sur les technologies
-                let category = 'web'; // Par défaut
-                const techs = project.technologies.toLowerCase();
-                
-                if (techs.includes('react native') || techs.includes('flutter') || techs.includes('mobile')) {
-                    category = 'mobile';
-                } else if (techs.includes('figma') || techs.includes('design') || techs.includes('ui/ux')) {
-                    category = 'design';
-                }
-                
-                return { ...project, category };
-            });
-            
-            // Initialiser l'affichage des projets
-            displayProjects(projects);
-            
-            // Configurer les filtres
-            setupFilters(projects);
-        })
-        .catch(error => {
-            console.error('Erreur lors du chargement des projets:', error);
-            document.getElementById('projects-grid').innerHTML = `
-                <div class="col-span-full text-center p-8">
-                    <p class="text-red-400">Impossible de charger les projets. Veuillez réessayer plus tard.</p>
-                </div>
-            `;
-        });
-        }
-
-        // Fonction pour afficher les projets
-    function displayProjects(projects, filter = 'all') {
-        const projectsGrid = document.getElementById('projects-grid');
-        projectsGrid.innerHTML = '';
-        
-        // Filtrer les projets si nécessaire
-        const filteredProjects = filter === 'all'
-            ? projects
-            : projects.filter(project => project.category === filter);
-        
-        if (filteredProjects.length === 0) {
-            projectsGrid.innerHTML = `
-                <div class="col-span-full text-center p-8">
-                    <p class="text-gray-400">Aucun projet dans cette catégorie pour le moment.</p>
-                </div>
-            `;
-            return;
-        }
-        
-        // Afficher chaque projet
-        filteredProjects.forEach((project, index) => {
-            const projectCard = document.createElement('div');
-            projectCard.className = 'project-card group';
-            projectCard.setAttribute('data-aos', 'fade-up');
-            projectCard.setAttribute('data-aos-delay', (index % 3) * 100);
-            
-            // Générer les badges de technologies
-            const techBadges = project.technologies.split(',').map(tech => {
-                return `<span class="px-2 py-1 bg-blue-600/20 text-blue-400 text-xs rounded-full">${tech.trim()}</span>`;
-            }).join('');
-            
-            projectCard.innerHTML = `
-                <div class="relative overflow-hidden rounded-xl shadow-lg bg-gray-800 border border-gray-700 h-full transform hover:scale-[1.03] hover:border-blue-600/40 transition-all duration-300">
-                    <div class="relative overflow-hidden h-56">
-                        <img src="${project.image}" alt="${project.titre}" class="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110">
-                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-70"></div>
-                        <div class="absolute bottom-0 left-0 w-full p-4">
-                            <div class="flex items-center mb-2">
-                                <span class="bg-blue-600 bg-opacity-30 text-blue-300 text-xs px-3 py-1 rounded-full backdrop-blur-sm">${project.category}</span>
-                                <span class="ml-auto text-gray-300 text-sm">${project.date}</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-white">${project.titre}</h3>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <p class="text-gray-300 mb-4 line-clamp-3">${project.description}</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            ${techBadges}
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <a href="${project.lien}" target="_blank" class="text-blue-400 hover:text-blue-300 inline-flex items-center">
-                                Explorer
-                                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                </svg>
-                            </a>
-                            <button class="modal-trigger p-2 rounded-full bg-blue-600/10 text-blue-400 hover:bg-blue-600/20 transition-colors" data-project='${JSON.stringify(project)}'>
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            projectsGrid.appendChild(projectCard);
-        });
-        
-        // Configurer les boutons pour ouvrir la modale
-        setupModalTriggers();
-    }
-    
-    // Configurer les filtres de projets
-    function setupFilters(projects) {
-        const filters = document.querySelectorAll('.project-filter');
-        
-        filters.forEach(filter => {
-            filter.addEventListener('click', function() {
-                // Réinitialiser l'état actif de tous les filtres
-                filters.forEach(f => {
-                    f.classList.remove('active', 'bg-blue-600/20', 'text-blue-400', 'border-blue-600/30');
-                    f.classList.add('bg-transparent', 'text-gray-400', 'border-gray-700');
-                });
-                
-                // Définir le filtre cliqué comme actif
-                this.classList.add('active', 'bg-blue-600/20', 'text-blue-400', 'border-blue-600/30');
-                this.classList.remove('bg-transparent', 'text-gray-400', 'border-gray-700');
-                
-                // Filtrer les projets
-                const filterValue = this.getAttribute('data-filter');
-                displayProjects(projects, filterValue);
-            });
-        });
-    }
-    
-    // Configurer les déclencheurs de modale
-    function setupModalTriggers() {
-        const modalTriggers = document.querySelectorAll('.modal-trigger');
-        
-        modalTriggers.forEach(trigger => {
-            trigger.addEventListener('click', function() {
-                const projectData = JSON.parse(this.getAttribute('data-project'));
-                showProjectModal(projectData);
-            });
-        });
-    }
-    
-    // Afficher la modale de projet
-    function showProjectModal(project) {
-        // Vérifier si une modale existe déjà
-        let modal = document.getElementById('project-modal');
-        if (modal) {
-            document.body.removeChild(modal);
-        }
-        
-        // Créer une nouvelle modale
-        modal = document.createElement('div');
-        modal.id = 'project-modal';
-        modal.className = 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-black bg-opacity-70 backdrop-blur-sm';
-        
-        // Générer les badges de technologies
-        const techBadges = project.technologies.split(',').map(tech => {
-            return `<span class="px-2 py-1 bg-blue-600/20 text-blue-400 text-xs rounded-full">${tech.trim()}</span>`;
-        }).join('');
-        
-        // Contenu de la modale
-        modal.innerHTML = `
-            <div class="bg-gray-900 rounded-2xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto transform scale-95 opacity-0 transition-all duration-300" id="modal-content">
-                <div class="relative">
-                    <div class="h-64 md:h-80 overflow-hidden">
-                        <img src="${project.image}" alt="${project.titre}" class="w-full h-full object-cover object-center">
-                        <div class="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-70"></div>
-                    </div>
-                    <button id="close-modal" class="absolute top-4 right-4 bg-gray-900 bg-opacity-50 text-white p-2 rounded-full backdrop-blur-sm hover:bg-opacity-70 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                    </button>
-                </div>
-                <div class="p-6 md:p-8">
-                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-4">${project.titre}</h2>
-                    <div class="flex items-center mb-6">
-                        <span class="bg-blue-600 bg-opacity-30 text-blue-300 text-sm px-3 py-1 rounded-full">${project.category}</span>
-                        <span class="ml-4 text-gray-400">${project.date}</span>
-                    </div>
-                    <div class="mb-6">
-                        <h3 class="text-xl font-semibold text-blue-400 mb-2">À propos du projet</h3>
-                        <p class="text-gray-300 mb-4">${project.description}</p>
-                    </div>
-                    <div class="mb-6">
-                        <h3 class="text-xl font-semibold text-blue-400 mb-2">Technologies utilisées</h3>
-                        <div class="flex flex-wrap gap-2">
-                            ${techBadges}
-                        </div>
-                    </div>
-                    <div class="flex justify-center mt-8">
-                        <a href="${project.lien}" target="_blank" class="inline-flex items-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition-colors duration-300">
-                            Voir le projet
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        `;
-        
-        document.body.appendChild(modal);
-        
-        // Animation d'entrée
-        setTimeout(() => {
-            const modalContent = document.getElementById('modal-content');
-            modalContent.classList.remove('scale-95', 'opacity-0');
-            modalContent.classList.add('scale-100', 'opacity-100');
-        }, 10);
-        
-        // Fermeture de la modale
-        document.getElementById('close-modal').addEventListener('click', closeModal);
-        modal.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-        
-        // Empêcher le défilement du corps
-        document.body.style.overflow = 'hidden';
-        
-        function closeModal() {
-            const modalContent = document.getElementById('modal-content');
-            modalContent.classList.remove('scale-100', 'opacity-100');
-            modalContent.classList.add('scale-95', 'opacity-0');
-            
-            setTimeout(() => {
-                document.body.removeChild(modal);
-                document.body.style.overflow = 'auto';
-            }, 300);
-        }
-    }
-     // Bouton retour en haut
-     const backToTopButton = document.getElementById('back-to-top');
-    
-     // Afficher/masquer le bouton en fonction du défilement
-     window.addEventListener('scroll', function() {
-         if (window.scrollY > 300) {
-             backToTopButton.classList.remove('opacity-0', 'invisible');
-             backToTopButton.classList.add('opacity-100', 'visible');
-         } else {
-             backToTopButton.classList.remove('opacity-100', 'visible');
-             backToTopButton.classList.add('opacity-0', 'invisible');
-         }
-     });
-     
-     // Action au clic sur le bouton
-     backToTopButton.addEventListener('click', function() {
-         window.scrollTo({
-             top: 0,
-             behavior: 'smooth'
-         });
-     });
-     
-     // Animation des liens du menu au défilement
-     const sections = document.querySelectorAll('section');
-     const navLinks = document.querySelectorAll('header a.nav-link');
-     
-     window.addEventListener('scroll', function() {
-         let current = '';
-         
-         sections.forEach(section => {
-             const sectionTop = section.offsetTop;
-             const sectionHeight = section.clientHeight;
-             
-             if (pageYOffset >= (sectionTop - sectionHeight / 3)) {
-                 current = section.getAttribute('id');
-             }
-         });
-         
-         navLinks.forEach(link => {
-             link.classList.remove('active');
-             if (link.getAttribute('href') === '#' + current) {
-                 link.classList.add('active');
-             }
-         });
-     });
-     
-     // Défilement fluide pour les liens d'ancrage
-     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-         anchor.addEventListener('click', function(e) {
-             e.preventDefault();
-             
-             const targetId = this.getAttribute('href');
-             if (targetId === '#') return;
-             
-             const targetElement = document.querySelector(targetId);
-             if (targetElement) {
-                 window.scrollTo({
-                     top: targetElement.offsetTop,
-                     behavior: 'smooth'
-                 });
-             }
-         });
-     });
-
-        
-    // Appeler les fonctions de chargement
-        loadSkills();
-        loadProjects();
-    });
-    </script>
+        <script src="script.js"></script>
 </body>
 </html>
