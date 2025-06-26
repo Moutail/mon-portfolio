@@ -39,6 +39,6 @@
         "image": "images/void_hacksimulator.png",
         "lien": "https://void-hacksimulator.onrender.com",
         "technologies": "Node.js,Express.js,MongoDB,Mongoose,Socket.io,JWT Authentication,bcryptjs,React.js,Tailwind CSS,WebSocket,Real-time Notifications,Terminal Emulation,File System Simulation,Gamification System,Admin Dashboard",
-        "date": "2024-12-26"
+        "date": "2025-06-26"
     }
 ]
