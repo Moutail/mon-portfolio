@@ -32,5 +32,13 @@
     "lien": "https://moutail.github.io/audio-visualizer/",
     "technologies": "HTML5,CSS3,JavaScript ES6+,Web Audio API,Canvas API,RequestAnimationFrame,AudioContext,Interface modulaire,Design responsive",
     "date": "2024-11-14"
+    },
+    {
+        "titre": "VOID HackSimulator - Plateforme d'Apprentissage en Cybersécurité",
+        "description": "VOID HackSimulator est une plateforme web complète d'apprentissage en cybersécurité qui simule un environnement de hacking éthique. L'application offre un terminal interactif, un système de défis progressifs, un forum communautaire en temps réel, et un système de gamification complet. Les utilisateurs peuvent apprendre les concepts de sécurité informatique à travers des scénarios pratiques incluant l'exploitation de vulnérabilités, la cryptographie, l'analyse de logs, et la navigation en ligne de commande. La plateforme intègre un système d'authentification JWT, des notifications en temps réel via Socket.io, et une interface d'administration complète pour la gestion des utilisateurs et des contenus.",
+        "image": "images/void_hacksimulator.png",
+        "lien": "https://votre-domaine.com/void-hacksimulator",
+        "technologies": "Node.js,Express.js,MongoDB,Mongoose,Socket.io,JWT Authentication,bcryptjs,React.js,Tailwind CSS,WebSocket,Real-time Notifications,Terminal Emulation,File System Simulation,Gamification System,Admin Dashboard",
+        "date": "2024-12-26"
     }
 ]
